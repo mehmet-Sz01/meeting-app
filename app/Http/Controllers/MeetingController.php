@@ -15,14 +15,14 @@ class MeetingController extends Controller
     public function store(Request $request)
     {
         $meetings = $this->getMeetingsFromFile();
-        
+
         $meeting = [
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'date' => $request->input('date'),
         ];
- 
-        $meetings[] = $meeting; 
+
+        $meetings[] = $meeting;
 
         $this->writeMeetingsToFile($meetings);
 
@@ -47,20 +47,20 @@ class MeetingController extends Controller
         File::put($filePath, $code);
     }
 
-    public function showMeetingCode() 
+    public function showMeetingCode()
     {
         $meetingCode = $this->getMeetingCodeFromFile();
         return view('meetings.show_code', compact('meetingCode'));
     }
-    
+
     private function getMeetingCodeFromFile()
     {
         $filePath = storage_path('app/meeting_code.txt');
-    
+
         if (File::exists($filePath)) {
             return File::get($filePath);
         }
-    
+
         return null;
     }
 
