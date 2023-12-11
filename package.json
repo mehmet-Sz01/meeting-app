@@ -31,6 +31,7 @@
         "admin-lte": "3.2",
         "bootstrap-fileinput": "^5.5.2",
         "ckeditor4": "^4.20.2",
+        "flatpickr": "^4.6.13",
         "fontawesome-4.7": "^4.7.0",
         "react-lineicons": "^3.0.0",
         "toastr": "^2.1.4"

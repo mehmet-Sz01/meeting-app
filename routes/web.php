@@ -1,8 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\DefaultController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\LoginController;
 
 
 
@@ -19,10 +21,17 @@ use App\Http\Controllers\MeetingController;
 */
 
 
-Route::get('nedmin',[DefaultController::class, 'index'])->name('nedmin.Index');
+Route::get('dashboard',[DashboardController::class, 'index'])->name('dashboard.Index');
 
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+Route::get('/meetings/meetingCalender', [MeetingController::class, 'meetingCalender'])->name('meetings.meetingCalender');
 Route::post('/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
 Route::get('/meetings/show-code', [MeetingController::class, 'showMeetingCode'])->name('meetings.show-code');
 Route::post('/meetings/show-calendar', [MeetingController::class, 'showCalendar'])->name('meetings.show-calendar');
 Route::post('/meetings/choose-best-time', [MeetingController::class, 'chooseBestTime'])->name('meetings.choose-best-time');
+Route::get('/meetings', [MeetingController::class, 'showMeetings'])->name('meetings.show');
+
+
+//google takvime göre ayarla
+Route::get('/login/google', [LoginController::class, 'redirectToGoogle'])->name('meetings.google-calender');
+Route::get('/login/google/callback', [LoginController::class, 'handleGoogleCallback']);

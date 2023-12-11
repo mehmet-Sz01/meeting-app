@@ -3,49 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class MeetingController extends Controller
 {
+
     public function create()
     {
         return view('meetings.create');
+
     }
 
     public function store(Request $request)
     {
-        $meetings = $this->getMeetingsFromFile();
+
+        $filePath = storage_path('meeting_scheduler.json');
+
+        if (File::exists($filePath))
+            $meetings =json_decode(file_get_contents($filePath),true);
+        else
+            $meetings=[];
+
+        //google api bağlanacak
+//       $client = Socialite::driver('google')->stateless()->userFromToken($request->session()->get('google_token'));
+
+        $meetingCode= (string) Str::uuid();
 
         $meeting = [
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'date' => $request->input('date'),
+            'participants' => ['Ali', 'Fatma', 'Mehmet', 'Merve'],
+            'title' => $request->title,
+            'description' => $request->description,
+            'dates' => $request->dates,
+            'code'=> $meetingCode,
         ];
 
         $meetings[] = $meeting;
 
-        $this->writeMeetingsToFile($meetings);
-
-        // Oluşturulan toplantıya özel bir kod oluştur
-        $meetingCode = $this->generateMeetingCode();
-
-        // Kodu dosyaya yaz
-        $this->writeMeetingCodeToFile($meetingCode);
+        file_put_contents($filePath, json_encode($meetings, JSON_PRETTY_PRINT));
 
         return redirect()->route('meetings.create')->with('success', 'Toplantı oluşturuldu! Kod: ' . $meetingCode);
     }
 
-    private function generateMeetingCode()
-    {
-        // Özel bir kod oluşturabilirsiniz, örneğin rastgele bir string
-        return str_random(8);
-    }
-
-    private function writeMeetingCodeToFile($code)
-    {
-        $filePath = storage_path('app/meeting_code.txt');
-        File::put($filePath, $code);
-    }
 
     public function showMeetingCode()
     {
@@ -53,24 +54,17 @@ class MeetingController extends Controller
         return view('meetings.show_code', compact('meetingCode'));
     }
 
-    private function getMeetingCodeFromFile()
+
+    public function meetingCalender()
     {
-        $filePath = storage_path('app/meeting_code.txt');
-
-        if (File::exists($filePath)) {
-            return File::get($filePath);
-        }
-
-        return null;
+        return view('meetings.meetingCalender');
     }
-
-
 
 public function showCalendar(Request $request)
 {
     // Toplantı kodunu ve kullanıcı ismini al
     $meetingCode = $request->input('meeting_code');
-    $username = $request->input('username');
+    $participants = $request->input('participants');
 
     // Toplantı kodunu kontrol et
     if (!$this->isValidMeetingCode($meetingCode)) {
@@ -81,18 +75,18 @@ public function showCalendar(Request $request)
     $meeting = $this->getMeetingByCode($meetingCode);
 
     // Kullanıcının uygunluk durumunu kontrol et
-    $availability = $this->getUserAvailability($username, $meeting);
+    $availability = $this->getUserAvailability($participants, $meeting);
 
-    return view('meetings.show_calendar', compact('meeting', 'username', 'availability'));
+    return view('meetings.show-calendar', compact('meeting', 'participants', 'availability'));
 }
 
-private function isValidMeetingCode($code)
+public function isValidMeetingCode($code): bool
 {
     $storedCode = $this->getMeetingCodeFromFile();
     return $storedCode && $storedCode === $code;
 }
 
-private function getMeetingByCode($code)
+  public function getMeetingByCode($code): array
 {
     // Bu fonksiyonu ihtiyacınıza göre düzenleyebilirsiniz
     // Örneğin, kodu kullanarak ilgili toplantıyı veritabanından çekebilirsiniz.
@@ -107,7 +101,7 @@ private function getMeetingByCode($code)
     ];
 }
 
-private function getUserAvailability($username, $meeting)
+public function getUserAvailability($username, $meeting): array
 {
     // Bu fonksiyonu ihtiyacınıza göre düzenleyebilirsiniz
     // Kullanıcının uygunluk durumunu kontrol etmek için örnek bir işlem
@@ -118,8 +112,6 @@ private function getUserAvailability($username, $meeting)
         // Diğer uygun saatler...
     ];
 }
-
-
 
 public function chooseBestTime(Request $request)
 {
@@ -143,7 +135,7 @@ public function chooseBestTime(Request $request)
     return view('meetings.best_time', compact('meeting', 'bestTime'));
 }
 
-private function findCommonAvailability($userAvailabilities)
+public function findCommonAvailability($userAvailabilities): array
 {
     // Bu fonksiyonu ihtiyacınıza göre düzenleyebilirsiniz
     // Tüm kullanıcıların uygun oldukları ortak zamanları bulan bir algoritma
@@ -152,8 +144,26 @@ private function findCommonAvailability($userAvailabilities)
 
     return $commonAvailability;
 }
+    public function getMeetingCodeFromFile()
+    {
+        $filePath = storage_path('meeting_scheduler.json');
 
+        if (File::exists($filePath))
+            $meetings =json_decode(file_get_contents($filePath),true);
+        else
+            $meetings=[];
 
+    }
+
+    public function showMeetings()
+    {
+        // JSON dosyasındaki verileri okuyun
+        $jsonFilePath = storage_path('meeting_scheduler.json');
+        $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+
+        // View'e verileri geçirin
+        return view('meetings.show', compact('jsonData'));
+    }
 
 
 }

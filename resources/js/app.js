@@ -14,7 +14,7 @@ import 'bootstrap-fileinput/js/locales/tr';
 import 'bootstrap-fileinput/themes/explorer-fa4/theme.min.js';
 import SwAlert from 'admin-lte/plugins/sweetalert2/sweetalert2.all.js';
 import toastr from 'toastr/toastr.js';
-
+import flatpickr from "flatpickr/dist/flatpickr";
 
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor';
 

@@ -18,6 +18,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @else
         <link rel="stylesheet" href="{{asset(mix('css/app.css'))}}">
     @endif
+    <link rel="stylesheet" href="{{ asset(mix('css/app.css'))}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -62,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          with font-awesome or any other icon font library -->
 
                     <li class="nav-item">
-                        <a href="{{route('nedmin.Index')}}" class="nav-link">
+                        <a href="{{route('dashboard.Index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 AnaSayfa
@@ -71,10 +74,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('meetings.meetingCalender')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Toplantılar
+                               Planlanmış Toplantılar
                             </p>
                         </a>
                     </li>
@@ -83,7 +86,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="{{route('meetings.create')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                TOplantı Oluştur
+                                Toplantı Oluştur
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{route('meetings.show')}}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Toplantı Bilgileri
                             </p>
                         </a>
                     </li>
@@ -98,17 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Toplantı Oluştur</h1>
-                    </div><!-- /.col -->
 
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
 
         <!-- Main content -->
         <div class="content">
@@ -138,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Default to the left -->
         <strong>TelifHakkı&copy; 2023 <a href="#">ZNG TOPLANTI</a>.</strong> Tüm Haklar Saklıdır.
     </footer>
-</div>
+
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
@@ -151,6 +153,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{asset(mix('js/app.js'))}}"></script>
 
 @endif
+<script src="{{ asset(mix('js/app.js')) }}" defer></script>
+
 
 </body>
 </html>
