@@ -30,3 +30,5 @@ Kodu aldıktan sonra ismimizle beraber kodu girip toplantılara erişebiliyoruz.
 Son olarakta aşağıdaki gibi oluşturduğumuz toplantıların bilgileri geliyor.
 
 ![toplantıbilgileri2](https://github.com/mehmet-Sz01/meeting-app/assets/114742349/e29c6058-a429-4a40-ab47-9caa89bd3cc6)
+
+Katılımcıları ben kendim belirledim.
