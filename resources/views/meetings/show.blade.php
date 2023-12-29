@@ -5,15 +5,14 @@
 @section('content')
     <div class="container">
         <h1 class="mt-4 mb-4">Toplantı Bilgileri</h1>
-
-        @if(!empty($jsonData) && is_array($jsonData))
+        @if(!empty($meeting) && is_array($meeting))
             <div class="list-group">
-                @foreach($jsonData as $item)
+                @foreach($meeting as $item)
                     <div class="list-group-item">
                         <h5 class="mb-1">{{ $item['title'] }}</h5>
 
                         @if(isset($item['dates']))
-                            <p class="mb-1">Toplantı Planlanabileceği Tarihler: {{ implode(', ', $item['dates']) }}</p>
+                            <p class="mb-1">Toplantı Planlanabileceği Tarihler: {{ is_array($item['dates']) ? implode(', ', $item['dates']) : $item['dates'] }}</p>
                         @endif
 
                         <p class="mb-1">Açıklama: {{ $item['description'] }}</p>
@@ -26,8 +25,6 @@
                                 @endforeach
                             </ul>
                         @endif
-
-                        <p class="mb-1">Toplantı Kodu: {{ $item['code'] }}</p>
                     </div>
                 @endforeach
             </div>

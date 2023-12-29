@@ -1,17 +1,8 @@
-@import "admin-lte/plugins/toastr/toastr.min.css";
-@import "admin-lte/dist/css/adminlte.min.css";
-@import "admin-lte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css";
-@import "admin-lte/plugins/toastr/toastr.min.css";
-@import "admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css";
-@import "admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css";
-@import "@fortawesome/fontawesome-free/css/all.min.css";
-@import "admin-lte/plugins/select2/css/select2.min.css";
-@import "bootstrap-fileinput/css/fileinput.min.css";
-@import "fontawesome-4.7/css/font-awesome.min.css";
-@import "bootstrap-fileinput/themes/explorer-fa4/theme.min.css";
-@import "ckeditor4/skins/moono-lisa/editor.css";
-@import "admin-lte/plugins/sweetalert2/sweetalert2.min.css";
-@import "toastr/toastr";
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Variables
+@import 'variables';
 
-
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';

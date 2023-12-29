@@ -4,6 +4,11 @@ html {
     overflow-y: scroll;
 }
 
+.form{
+    width: 34px;
+    height: 34px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     background-color: inherit;

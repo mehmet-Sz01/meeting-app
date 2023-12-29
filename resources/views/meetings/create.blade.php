@@ -25,7 +25,7 @@
 
                     <div class="mb-3">
                         <label for="date" class="form-label">Tarih:</label>
-                        <input type="date" class="form-control" name="date" required>
+                        <input type="date" class="form-control" name="dates" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Toplantı Oluştur</button>

@@ -29,7 +29,10 @@ Route::post('/meetings/store', [MeetingController::class, 'store'])->name('meeti
 Route::get('/meetings/show-code', [MeetingController::class, 'showMeetingCode'])->name('meetings.show-code');
 Route::post('/meetings/show-calendar', [MeetingController::class, 'showCalendar'])->name('meetings.show-calendar');
 Route::post('/meetings/choose-best-time', [MeetingController::class, 'chooseBestTime'])->name('meetings.choose-best-time');
+Route::get('/meetings/show-Date', [MeetingController::class, 'showDate'])->name('meetings.show-Date');
 Route::get('/meetings', [MeetingController::class, 'showMeetings'])->name('meetings.show');
+
+
 
 
 //google takvime göre ayarla

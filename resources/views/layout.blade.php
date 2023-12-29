@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset(mix('css/app.css'))}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -141,11 +142,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <strong>TelifHakkı&copy; 2023 <a href="#">ZNG TOPLANTI</a>.</strong> Tüm Haklar Saklıdır.
     </footer>
 
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
 
 @if (config('app.env') == 'prod')
     <script src="{{asset(mix('js/app.js'), true)}}"></script>

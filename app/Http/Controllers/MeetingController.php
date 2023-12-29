@@ -11,13 +11,18 @@ use Laravel\Socialite\Facades\Socialite;
 class MeetingController extends Controller
 {
 
+    public function showDate()
+    {
+        return view('meetings.show-Date');
+    }
+
     public function create()
     {
         return view('meetings.create');
 
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $filePath = storage_path('meeting_scheduler.json');
@@ -63,12 +68,12 @@ class MeetingController extends Controller
 public function showCalendar(Request $request)
 {
     // Toplantı kodunu ve kullanıcı ismini al
-    $meetingCode = $request->input('meeting_code');
-    $participants = $request->input('participants');
+    $meetingCode = $request->meeting_code;
+    $participants = $request->username;
 
     // Toplantı kodunu kontrol et
-    if (!$this->isValidMeetingCode($meetingCode)) {
-        return redirect()->route('meetings.create')->with('error', 'Geçersiz toplantı kodu.');
+    if ($this->isValidMeetingCode($meetingCode)) {
+        return redirect()->route('meetings.meetingCalender')->with('error', 'Geçersiz toplantı kodu.');
     }
 
     // Toplantı bilgilerini al
@@ -77,11 +82,12 @@ public function showCalendar(Request $request)
     // Kullanıcının uygunluk durumunu kontrol et
     $availability = $this->getUserAvailability($participants, $meeting);
 
-    return view('meetings.show-calendar', compact('meeting', 'participants', 'availability'));
+    return view('meetings.show', compact('meeting', 'participants', 'availability'));
 }
 
 public function isValidMeetingCode($code): bool
 {
+
     $storedCode = $this->getMeetingCodeFromFile();
     return $storedCode && $storedCode === $code;
 }
@@ -153,16 +159,17 @@ public function findCommonAvailability($userAvailabilities): array
         else
             $meetings=[];
 
+        return $meetings;
     }
 
     public function showMeetings()
     {
         // JSON dosyasındaki verileri okuyun
         $jsonFilePath = storage_path('meeting_scheduler.json');
-        $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+        $meeting = json_decode(file_get_contents($jsonFilePath), true);
 
         // View'e verileri geçirin
-        return view('meetings.show', compact('jsonData'));
+        return view('meetings.show', compact('meeting'));
     }
 
 

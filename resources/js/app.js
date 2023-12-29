@@ -1,42 +1,32 @@
-import 'admin-lte/plugins/jquery/jquery.js';
-import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js';
-import 'admin-lte/plugins/sweetalert2/sweetalert2.min.js';
-import 'admin-lte/plugins/toastr/toastr.min.js';
-import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
-import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
-import 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
-import 'admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js';
-import 'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
-import 'admin-lte/dist/js/adminlte.min.js';
-import 'admin-lte/plugins/select2/js/select2.full.min';
-import 'bootstrap-fileinput/js/fileinput.min';
-import 'bootstrap-fileinput/js/locales/tr';
-import 'bootstrap-fileinput/themes/explorer-fa4/theme.min.js';
-import SwAlert from 'admin-lte/plugins/sweetalert2/sweetalert2.all.js';
-import toastr from 'toastr/toastr.js';
-import flatpickr from "flatpickr/dist/flatpickr";
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor';
+require('./bootstrap');
 
-// ref: https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/#document-ready
+window.Vue = require('vue').default;
 
-var ready = (callback) => {
-    if (document.readyState != "loading") callback();
-    else document.addEventListener("DOMContentLoaded", callback);
-}
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-window.$ = window.jQuery = require('jquery');
-window.Swal = SwAlert;
-window.toastr = toastr;
-ready(() => {
-    $('select').select2();
-    $('.tooltip_title').tooltip()
-    $(".bs-custom-image-upload").fileinput({
-        theme: "explorer-fa4",
-        language: 'tr',
-        showCancel: false,
-        showUpload: false,
-        allowedFileExtensions: ["jpg", "png", "jpeg"],
-        browseClass: "btn btn-info "
-    });
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+const app = new Vue({
+    el: '#app',
 });
